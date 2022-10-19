@@ -1,0 +1,71 @@
+.list-group-item.active {
+    color: white;
+}
+@media only screen and (max-width: 768px) {
+    .element {
+        background-color:rgba(240, 240, 240);
+        height: 500px;
+        width: 300px;
+        float: left;
+
+    }
+    .img-element{
+        height: 298px;
+        width: 298px;
+
+    }
+    .element-info{
+        height: 125px;
+    }
+    .element-btn{
+        height: 50px;
+    }
+    .element-footer{
+    height: 200px;
+    }
+    .elements{
+        margin:auto;
+        margin-bottom: 30px;
+    }
+  }
+  @media only screen and (min-width:  768px) {
+    .element {
+        background-color:rgba(240, 240, 240);
+        height: 400px;
+        width: 200px;
+        float: left;
+
+    }
+    .img-element{
+        height: 198px;
+        width: 198px;
+
+    }
+    .element-info{
+        height: 125px;
+    }
+    .element-btn{
+        height: 50px;
+    }
+    .element-footer{
+    height: 200px;
+    }
+    .elements{
+        margin-bottom: 30px;
+         margin-left: 5px; 
+         margin-right: 5px;  
+         float: left;
+    }
+  }
+
+.category-btn.collapsed:before {
+  content: '+';
+  display: block;
+  width: 15px;
+}
+
+.category-btn:before {
+  content: '-';
+  display: block;
+  width: 15px;
+}

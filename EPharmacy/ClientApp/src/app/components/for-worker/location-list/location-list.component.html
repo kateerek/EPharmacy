@@ -1,0 +1,32 @@
+<div class="col-12 " style="padding-top:10px;">
+
+  <div class="col-12 col-sm-1" style="margin-top: 35px; margin-bottom: 35px;">
+    <button class="btn btn-primary" routerLink="/add-location"><img src="../../../../assets/plus-5-32.png"></button>
+  </div>
+
+  <ng-container *ngFor="let location of valuesOnPage">
+    <div class="card mb-3" style="min-height: 200px;">
+      <div class="row no-gutters">
+        <div class=" col-12 col-md-8">
+          <div class="col-12 row">
+            <div class="card-body col-12 col-sm-8">
+              <h5 class="card-title">{{location.name}}</h5>
+              <p class="card-text">{{location.address}}</p>
+            </div>
+            <div class="btn-group col-8 col-sm-3" style="margin-top: 35px; height: 50px" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-primary" (click)="selectedLocation=location" ><img src="../../../../assets/edit-7-32.png"></button>
+              <button type="button" class="btn btn-primary" (click)="onDelete(location)"><img src="../../../../assets/delete-32.png"></button>
+            </div>
+
+            <div class="w-100"></div>
+            <div *ngIf="location === selectedLocation" class="col-12">
+                <app-edit-location [location]="selectedLocation" (locationChange)="onEdit($event)"></app-edit-location>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</div>

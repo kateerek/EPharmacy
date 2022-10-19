@@ -1,0 +1,33 @@
+<div class="container">
+  <form class="col-12 row" [formGroup]="additionForm" (ngSubmit)="onSubmit()">
+    <div class="col -12 col-sm-6">
+      <div class="form-group">
+        <label>Nazwa</label>
+        <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitted && f.name.errors}" />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">* wymagane</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Wewnętrzna nazwa</label>
+        <input maxlength="20" type="text" class="form-control" formControlName="internalName" [ngClass]="{'is-invalid':submitted && f.internalName.errors}" />
+        <div *ngIf="submitted && f.internalName.errors" class="invalid-feedback">
+          <div *ngIf="f.internalName.errors.required">* wymagane</div>
+          <div *ngIf="f.internalName.errors.pattern">Wewnętrzna nazwa nie może zawierać białych znaków</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Opis</label>
+        <textarea class="form-control" formControlName="description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary">Dodaj</button>
+      </div>
+
+    </div>
+  </form>
+</div>
+

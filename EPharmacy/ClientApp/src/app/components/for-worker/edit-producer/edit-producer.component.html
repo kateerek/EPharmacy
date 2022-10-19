@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>Edytuj producenta</h2>
+  <form [formGroup]="editionForm" (ngSubmit)="onSubmit()">
+    <div>
+      <div class="form-group">
+        <label>Nazwa</label>
+        <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitted && f.name.errors}" />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">* wymagane</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Adres</label>
+        <input type="text" class="form-control" formControlName="address" [ngClass]="{'is-invalid':submitted && f.address.errors}" />
+        <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+          <div *ngIf="f.address.errors.required">* wymagane</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary">Edytuj</button>
+      </div>
+
+    </div>
+  </form>
+</div>

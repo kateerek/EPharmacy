@@ -1,0 +1,28 @@
+<div class="container">
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    <strong>Operacja nie powiodła się</strong>: {{errorMessage}}
+  </div>
+  <div class="form-group d-flex align-items-left align-items-center py-2">
+    <span class="mr-2">Wpisz nr zamówienia:</span>
+    <input class="mr-2" type="text" ngModel #orderIdInput="ngModel" />
+    <button class="btn btn-primary btn-sm" [disabled]="!isValidNumber(orderIdInput.value)"
+            (click)="markOrderAsCompleted(+orderIdInput.value)">Przenieś do zrealizowanych</button>
+  </div>
+  <ul class="nav nav-tabs">
+    <li>
+      <button class="nav-link" [class.active]="selectedTabIndex === 0" (click)="toggleTab(0)">W trakcie realizacji</button>
+    </li>
+    <li>
+      <button class="nav-link" [class.active]="selectedTabIndex === 1" (click)="toggleTab(1)">Zrealizowane</button>
+    </li>
+  </ul>
+  <ul class="list-group list-group-flush">
+    <li *ngFor="let order of valuesOnPage" class="list-group-item">
+      <div class="container d-flex justify-content-between align-items-center">
+        <span style="cursor: pointer" (click)="changeSelection(order)">Zamówienie nr #{{order.id}}</span>
+        <button *ngIf="selectedTabIndex === 0" class="btn btn-primary" (click)="markOrderAsCompleted(order.id)">Przenieś do zrealizowanych</button>
+      </div>
+      <app-order *ngIf="selectedOrder && selectedOrder.id === order.id" [order]="order"></app-order>
+    </li>
+  </ul>
+</div>

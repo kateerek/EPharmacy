@@ -1,0 +1,18 @@
+<div class="background">
+  <div class=" card text-center center page">
+    <ng-template appListViewHost></ng-template>
+  </div>
+  <div class="card-footer text-muted card-parts">
+    <nav *ngIf="componentInstance.isPaginationVisible()" aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item ">
+          <a class="page-link" tabindex="-1" (click)="componentInstance.prevPage()">Poprzednia</a>
+        </li>
+        <li *ngFor="let page of componentInstance.pageList" class="page-item"><a class="page-link" (click)="componentInstance.setPage(page)">{{page}}</a></li>
+        <li class="page-item">
+          <a class="page-link" (click)="componentInstance.nextPage()">Następna</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

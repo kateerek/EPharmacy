@@ -1,0 +1,52 @@
+
+
+<div class="card" style="margin-top: 20px;  border-color: black;">
+  <div class="card-body">
+    <h5 class="card-title">Zamówienie #{{order.id}}</h5>
+    <h6 class="card-title">Dnia: {{formatDate(order.orderDate)}}</h6>
+    <h6 class="card-title" *ngIf="order.endDate.getTime() !== this.nullDate.getTime()">
+      Zrealizowane: {{formatDate(order.endDate)}}
+    </h6>
+    <h6 class="card-title">Lista zamówienia:</h6>
+    <ul *ngFor="let item of order.items" class="list-group list-group-flush">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-sm-6">
+            <p class="card-text">{{item.product.name}}</p>
+          </div>
+          <div class="col-sm-6">
+            <p class="card-text" style="float: right;">{{item.itemCount}} szt.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6" *ngIf="item.priceWithDiscount == null">
+            <p class="card-text">Cena: {{item.product.productPrice}} zł</p>
+          </div>
+          <div class="col-sm-6" *ngIf="item.priceWithDiscount != null && item.prescriptionCategoryInfoModel == null">
+            <p class="card-text">Cena ze zniżką: {{item.priceWithDiscount}} zł</p>
+          </div>
+          <div class="col-sm-6" *ngIf="item.priceWithDiscount != null && item.prescriptionCategoryInfoModel != null">
+            <p class="card-text">Cena po refundacji: {{item.priceWithDiscount}} zł</p>
+          </div>
+        </div>
+        <div class="row" *ngIf="item.priceWithDiscount != null && item.prescriptionCategoryInfoModel != null">
+          <div class="col-sm-6">
+            <p class="card-text">Refundacja: {{item.prescriptionCategoryInfoModel.name}} </p>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="row" style="margin-top:20px;">
+      <div class="col-sm-4">
+        <h6 class="card-link"> Lokalizacja:  {{order.pharmacyLocation.name}}</h6>
+      </div>
+      <div class="col-sm-4">
+        <h6 class="card-link"> Status zamówienia:  {{order.status}}</h6>
+      </div>
+      <div class="col-sm-4">
+        <h6 class="card-link"> Cena zamówienia:  {{order.totalPrice | number : '1.2'}} zł</h6>
+      </div>
+    </div>
+
+  </div>
+</div>

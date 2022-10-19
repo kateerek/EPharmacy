@@ -1,0 +1,10 @@
+<label for="{{name}}">{{label}}</label>
+<input id="{{name}}"
+       [name]="name"
+       [type]="type"
+       class="form-control"
+       [placeholder]="placeholder ? placeholder : ''"
+       [(ngModel)]="value"
+       (ngModelChange)="onUiValueChange($event)"
+       (blur)="onTouched()"
+       [disabled]="isDisabled" />

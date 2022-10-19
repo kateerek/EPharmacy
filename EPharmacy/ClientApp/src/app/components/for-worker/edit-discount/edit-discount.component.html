@@ -1,0 +1,10 @@
+<app-discount-form *ngIf="discountModel" submitBtnText="Edytuj"
+                   [name]="discountModel.discount.name"
+                   [validTo]="discountModel.discount.validTo"
+                   [description]="discountModel.discount.description"
+                   [discountType]="discountModel.discount.discountValue.discountType"
+                   [discountValue]="discountModel.discount.discountValue.value"
+                   [products]="productsList"
+                   [attributes]="attributesList"
+                   (submition)="onSubmit($event)">
+</app-discount-form>

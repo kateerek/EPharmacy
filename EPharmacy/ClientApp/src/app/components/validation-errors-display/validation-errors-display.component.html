@@ -1,0 +1,5 @@
+<div *ngIf="isVisible()">
+  <div *ngFor="let error of objectKeys(model.errors)">
+    <small class="text-danger">{{getErrorMessage(error)}}</small>
+  </div>
+</div>

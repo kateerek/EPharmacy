@@ -1,0 +1,58 @@
+<div class="container">
+
+  <form class="col-12 row" [formGroup]="additionForm" (ngSubmit)="onSubmit()">
+    <div class="col -12 col-sm-5">
+      <div class="form-group">
+        <label>Nazwa</label>
+        <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitted && f.name.errors}" />
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">* wymagane</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Adres</label>
+        <input type="text" class="form-control" formControlName="address" [ngClass]="{'is-invalid':submitted && f.address.errors}" />
+        <div *ngIf="submitted && f.address.errors" class="invalid-feedback">
+          <div *ngIf="f.internalName.errors.required">* wymagane</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Szerokość geograficzna</label>
+        <input disabled="true" type="number" class="form-control" formControlName="latitude" [ngClass]="{'is-invalid':submitted && f.latitude.errors}" />
+        <div *ngIf="submitted && f.latitude.errors" class="invalid-feedback">
+          <div *ngIf="f.latitude.errors.required">* wymagane</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Długość geograficzna</label>
+        <input disabled="true" type="number" class="form-control" formControlName="longitude" [ngClass]="{'is-invalid':submitted && f.longitude.errors}" />
+        <div *ngIf="submitted && f.longitude.errors" class="invalid-feedback">
+          <div *ngIf="f.longitude.errors.required">* wymagane</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary">Dodaj</button>
+      </div>
+
+    </div>
+
+    <div class="col -12 col-sm-7">
+
+      <label>Wybierz lokalizację na mapie</label>
+      <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="12" (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+        <agm-marker
+          *ngFor="let marker of markers"
+          [latitude]="marker.lat" [longitude]="marker.lng">
+        </agm-marker>
+      </agm-map>
+
+    </div>
+
+  </form>
+
+</div>
+

@@ -1,0 +1,130 @@
+<div class="container my-3">
+  <form class="col-12 row" *ngIf="form" [formGroup]="form">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="form-group">
+        <label>Nazwa</label>
+        <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitted && f.name.errors}"
+               [(ngModel)]="name"/>
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">* wymagane</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Zniżka ważna do:</label>
+        <input maxlength="20" type="date" class="form-control" formControlName="validTo"
+               [ngClass]="{'is-invalid': submitted && f.validTo.errors}"
+               [ngModel]="validTo | date:'yyyy-MM-dd'" (ngModelChange)="validTo=convertStringToDate($event)" />
+        <div *ngIf="submitted && f.validTo.errors" class="invalid-feedback">
+          <div *ngIf="f.validTo.errors.required">* wymagane</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Opis</label>
+        <textarea rows="5" class="form-control" formControlName="description" [(ngModel)]="description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Typ zniżki</label>
+        <div class="form-check">
+          <div>
+            <input class="form-check-input" formControlName="discountType" type="radio" [value]="0" id="percent"
+                   [ngClass]="{'is-invalid': submitted && f.discountType.errors}"
+                   [(ngModel)]="discountType"/>
+            <label for="percent" class="form-check-label">Procentowa</label>
+          </div>
+          <div>
+            <input class="form-check-input" formControlName="discountType" type="radio" [value]="1" id="val"
+                   [ngClass]="{'is-invalid': submitted && f.discountType.errors}"
+                   [(ngModel)]="discountType"/>
+            <label for="val" class="form-check-label">Wartościowa</label>
+          </div>
+          <input type="hidden" class="form-control is-invalid" />
+          <div *ngIf="submitted && f.discountType.errors" class="invalid-feedback">
+            <div *ngIf="f.discountType.errors.required">* wymagane</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Wartość zniżki</label>
+        <input type="text" formControlName="discountValue" class="form-control"
+               [ngClass]="{'is-invalid': submitted && f.discountValue.errors}"
+               [(ngModel)]="discountValueStr"/>
+        <div class="invalid-feedback">
+          <div *ngIf="f.discountValue.errors?.required">* wymagane</div>
+          <div *ngIf="f.discountValue.errors?.pattern">Niepoprawny format danych</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div><label>Wybierz produkty:</label></div>
+        <div>
+          <select class="form-control" ngModel [ngModelOptions]="{standalone: true}"
+                  (ngModelChange)="onSelectedAttributeChanged($event)">
+            <option *ngFor="let attribute of attributesList">{{attribute.name}}</option>
+          </select>
+        </div>
+        <div class="container py-1">
+          <div class="row align-items-center">
+            <select class="form-control col-md-9" *ngIf="selectedAttributeId !== null" formControlName="product">
+              <option *ngFor="let product of productsList">{{product.name}}</option>
+            </select>
+            <button *ngIf="selectedAttributeId !== null" class="btn btn-primary btn-sm ml-2" (click)="addProduct()">Dodaj produkt</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div><label>Wybierz atrybuty:</label></div>
+        <div class="container">
+          <div class="row align-items-center">
+            <select class="form-control col-md-9" formControlName="attribute">
+              <option *ngFor="let attribute of attributesList">{{attribute.name}}</option>
+            </select>
+            <button class="btn btn-primary btn-sm ml-2" (click)="addAttribute()">Dodaj atrybut</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input class="form-control" type="hidden" [ngClass]="{'is-invalid': submitted && (form.errors || errors)}"/>
+        <div *ngIf="form.errors && form.errors.noElementsSelected" class="invalid-feedback">
+          Nie wybrano żadnego produktu ani atrybutu
+        </div>
+        <div *ngIf="errors" class="invalid-feedback">
+          <div *ngFor="let errorList of objectValues(errors)">
+            <div *ngFor="let error of errorList">{{error}}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" (click)="onSubmit()">{{submitBtnText}}</button>
+      </div>
+
+    </div>
+    <div class="col-md-4 col-lg-6">
+      <div *ngIf="selectedProducts.length > 0">
+        <h3>Wybrane produkty:</h3>
+        <ul class="list-group">
+          <li *ngFor="let product of selectedProducts" class="list-group-item d-flex justify-content-between align-items-center">
+            {{product.name}}
+            <span style="cursor:pointer" (click)="removeProduct(product)">&#10060;</span>
+          </li>
+        </ul>
+      </div>
+      <div class="mt-4" *ngIf="selectedAttributes.length">
+        <h3>Wybrane atrybuty</h3>
+        <ul class="list-group">
+          <li *ngFor="let attribute of selectedAttributes" class="list-group-item d-flex justify-content-between align-items-center">
+            {{attribute.name}}
+            <span style="cursor:pointer" (click)="removeAttribute(attribute)">&#10060;</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </form>
+</div>
+

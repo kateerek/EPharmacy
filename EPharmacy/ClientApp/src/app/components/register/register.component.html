@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="card border-0">
+
+      <div class="card-header bg-white border-0">
+        <h4 class="card-title">Stwórz konto</h4>
+      </div>
+
+      <div class="col-12 col-lg-6">
+      <form #f="ngForm" novalidate (ngSubmit)="registerUser(f)">
+
+        <div class="form-group">
+          <app-form-input-element name="firstName" label="Imię" placeholder="Twoje imię" required ngModel #firstName="ngModel"></app-form-input-element>
+          <app-validation-errors-display [model]="firstName" message="*Wymagane"></app-validation-errors-display>
+        </div>
+
+        <div class="form-group">
+          <app-form-input-element name="lastName" label="Nazwisko" placeholder="Twoje nazwisko" required ngModel #lastName="ngModel"></app-form-input-element>
+          <app-validation-errors-display [model]="lastName" message="*Wymagane"></app-validation-errors-display>
+        </div>
+
+        <div class="form-group">
+          <app-form-input-element name="email" label="E-mail" placeholder="E-mail" type="email" email ngModel #email="ngModel"></app-form-input-element>
+          <app-validation-errors-display [model]="email" message="Podaj prawidłowy adres e-mail"></app-validation-errors-display>
+        </div>
+
+        <div class="form-group">
+          <app-form-input-element name="password" label="Hasło" type="password" placeholder="Hasło" password ngModel #pass="ngModel"></app-form-input-element>
+          <app-validation-errors-display [model]="pass" [messages-factory]="passwordValidationMessageFactory" [show-on-touched]="false" [show-on-dirty]="true"></app-validation-errors-display>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="f.invalid || f.submitted">Zarejestruj</button>
+        </div>
+
+        <div *ngIf="errors" class="alert alert-danger" role="alert">
+          <strong>Oops!</strong> {{errors}}
+        </div>
+
+      </form>
+      </div>
+
+    </div>
+  </div>
+</div>

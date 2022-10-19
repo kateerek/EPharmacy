@@ -1,0 +1,138 @@
+
+<div class="container row">
+
+      <form  class="col-12 col-sm-6" [formGroup]="additionForm" (ngSubmit)="onSubmit()">
+        <div>
+            <div class="form-group">
+                <label>Nazwa</label>
+                <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitted && f.name.errors}" />
+                <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                  <div *ngIf="f.name.errors.required">* wymagane</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Cena</label>
+                <input type="text" class="form-control" formControlName="price" [ngClass]="{'is-invalid': submitted && f.price.errors}" />
+                <div *ngIf="submitted && f.price.errors" class="invalid-feedback">
+                  <div *ngIf="f.price.errors.required">* wymagane</div>
+                  <div *ngIf="f.price.errors.pattern">* wymagane wpisanie poprawnej ceny (przykład: 10.99 )</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Zalecenia/Dawkowanie</label>
+                <input type="recommendedIntake" class="form-control" formControlName="recommendedIntake" [ngClass]="{'is-invalid':submitted && f.recommendedIntake.errors}" />
+                <div *ngIf="submitted && f.recommendedIntake.errors" class="invalid-feedback">
+                  <div *ngIf="f.recommendedIntake.errors.required">* wymagane</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Skład</label>
+                <input type="composition" class="form-control" formControlName="composition" [ngClass]="{'is-invalid':submitted && f.composition.errors}" />
+                <div *ngIf="submitted && f.composition.errors" class="invalid-feedback">
+                  <div *ngIf="f.composition.errors.required">* wymagane</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Wskazanie do użycia</label>
+                <input type="indicationForUse" class="form-control" formControlName="indicationForUse" [ngClass]="{'is-invalid':submitted && f.indicationForUse.errors}" />
+                <div *ngIf="submitted && f.indicationForUse.errors" class="invalid-feedback">
+                  <div *ngIf="f.indicationForUse.errors.required">* wymagane</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Zdjęcie</label>
+                <input type="imageUrl" class="form-control" formControlName="imageUrl" [ngClass]="{'is-invalid':submitted && f.imageUrl.errors}" />
+                <div *ngIf="submitted && f.imageUrl.errors" class="invalid-feedback">
+                  <div *ngIf="f.imageUrl.errors.required">* wymagane</div>
+                  <div *ngIf="f.imageUrl.errors.pattern">* wymagane wpisanie poprawnego adresu zdjęcia</div>
+                </div>
+              </div>
+              <div class="form-group">
+                  <label>Producent</label>
+                  <select type="producer" class="form-control" formControlName="producer" [ngClass]="{'is-invalid':submitted && f.producer.errors}" >
+                      <option *ngFor="let obj of producers | async" [ngValue]="obj.id">{{obj.name}}</option>
+                  </select>
+                  <div *ngIf="submitted && f.producer.errors" class="invalid-feedback">
+                    <div *ngIf="f.producer.errors.required">* wymagane</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label>Kategoria</label>
+                    <select type="type" class="form-control" formControlName="type" [ngClass]="{'is-invalid':submitted && f.type.errors}" >
+                        <option *ngFor="let obj of types | async" [ngValue]="obj.id">{{obj.name}}</option>
+                    </select>
+                    <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                      <div *ngIf="f.type.errors.required">* wymagane</div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label>Lista wszystkich atrybutów</label>
+                      <select type="type" class="form-control" formControlName="attributes" (change)="addAttribute()" [ngClass]="{'is-invalid':submitted && f.type.errors}" >
+                          <option *ngFor="let obj of attributes | async" [ngValue]="obj">{{obj.name}}</option>
+                      </select>
+                      <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                          <div *ngIf="f.type.errors.required">* wymagane</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Lista wszystkich aktywnych substancji</label>
+                        <select type="type" class="form-control" formControlName="substances" (change)="addSubstance()" [ngClass]="{'is-invalid':submitted && f.type.errors}" >
+                            <option *ngFor="let obj of substances | async" [ngValue]="obj">{{obj.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                            <div *ngIf="f.type.errors.required">* wymagane</div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                          <label>Lista wszystkich refundacji</label>
+                          <select type="type" class="form-control" formControlName="prescription" (change)="addPrescription()" [ngClass]="{'is-invalid':submitted && f.type.errors}" >
+                              <option *ngFor="let obj of prescriptions | async" [ngValue]="obj">{{obj.name}}</option>
+                          </select>
+                          <div *ngIf="submitted && f.type.errors" class="invalid-feedback">
+                              <div *ngIf="f.type.errors.required">* wymagane</div>
+                          </div>
+                      </div>
+                      <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" formControlName= "prescript" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Produkt na receptę</label>
+                      </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">Dodaj</button>
+          </div>
+        </form>
+        <div class="col -12 col-sm-6">
+            <div >
+            
+                <div>
+                    <label>Lista nałożonych atrybutów</label>
+                    <div class="list-group">
+                      <a *ngFor="let obj of activeAttributes " class="list-group-item list-group-item-action" (click) = "removeAttribute(obj)">{{obj.name}}</a>
+                    </div>
+                </div>
+               
+                </div>
+                <div>
+                    <label>Lista nałożonych aktywnych substancji</label>
+                    <div class="list-group">
+                      <div class="list-group-item list-group-item-action row" *ngFor="let obj of activeSubstances " >
+                        <button class="btn btn-danger" (click) = "removeSubstance(obj)" style="position: absolute; top: 0; right: 0;">X</button>
+                          <a   class=" col-12" >{{obj.item.name}}</a>
+                          <input class=" col-12" style="margin-top: 10px;" [(ngModel)]= "obj.value"/>
+                      </div>
+                      
+                    </div>
+                </div>
+                <div>
+                    <label>Lista nałożonych refundacji</label>
+                    <div class="list-group">
+                        <div *ngFor="let obj of activePrescriptions " class="list-group-item list-group-item-action row" >
+                          <button class="btn btn-danger" (click) = "removePrescription(obj)" style="position: absolute; top: 0; right: 0;">X</button>
+                          <a  class=" col-12" >{{obj.item.name}}</a>
+                          <input class=" col-12" style="margin-top: 10px;" [(ngModel)]= "obj.value"/>
+                        </div>
+                    </div>
+                </div>
+        </div>
+      
+</div>

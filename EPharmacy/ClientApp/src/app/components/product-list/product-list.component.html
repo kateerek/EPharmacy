@@ -1,0 +1,112 @@
+<div class="background">
+  <div class=" card text-center center page">
+    <app-products-offer [text]="text" [productsOffer]="productsOffer"></app-products-offer>
+    <div class="row ">
+      <div class="col-12 col-sm-4 col-md-3  ">
+        <div class="filter-textbox " style="margin:auto; min-width:178px; max-width:260px; padding-bottom: 10px; padding-top: 10px;">
+          <filter-textbox (changed)="filterProducts($event)"></filter-textbox>
+        </div>
+        <div class="list-group d-none d-sm-block" style=" margin-left: auto; margin-right: auto; min-width:178px; max-width:260px; padding-bottom: 10px;">
+          <div *ngFor="let category of categories" style="margin-bottom:5px;">
+            <div class="row">
+              <div class="col-md-2 btn-group">
+                <button class="btn btn-primary collapsed category-btn"
+                        type="button"
+                        data-toggle="collapse"
+                        [attr.data-target]="'#subcategories' + category.attribute.id">
+                </button>
+              </div>
+              <div class="col-md-10">
+                <a class="list-group-item list-group-item-action cursor-pointer"
+                   role="button"
+                   [class.active]="categoriesSelected.includes(category.attribute.id)"
+                   (click)="filter(category.attribute.id)">
+                  {{category.attribute.name}}
+                </a>
+              </div>
+            </div>
+            <div class="row">
+
+                <div class="collapse show col-10"
+                [class.show]="categoriesSelected.length > 1 && categoriesSelected.includes(category.attribute.id)"
+                id="subcategories{{category.attribute.id}}">
+             <div *ngFor="let subcategory of category.subAttributes" style="margin: 2px;">
+               <a class="list-group-item list-group-item-action cursor-pointer"
+                  role="button"
+                  [class.active]="categoriesSelected.includes(category.attribute.id)
+                  && categoriesSelected.includes(subcategory.id)"
+                  (click)="filterSub(category.attribute.id, subcategory.id)">
+                 {{subcategory.name}}
+               </a>
+             </div>
+           </div>
+            </div>
+         
+          </div>
+          <div class="d-block d-sm-none">
+            <select class="browser-default custom-select" ngModel (ngModelChange)="filter($event)" style="max-width:300px; margin-bottom: 10px;">
+              <option *ngFor="let category of categories" [ngValue]="category.attribute.id">
+                {{category.attribute.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-8 col-md-9" style="padding-top:10px;">
+
+        <div class="row ">
+          <ng-container *ngFor="let product of productsOnPage">
+            <div class="elements">
+              <div class="card center size element-pic element">
+                <img class="card-img-top img-element cursor-pointer" routerLink="/product-info/{{product.id}}" src={{product.imageUrl}} alt="Card image cap">
+                <div class="card-footer element-footer" style="background-color: rgb(240, 240, 240);">
+                  <div class="element-info" routerLink="/product-info/{{product.id}}">
+                    <h5 class="card-title">{{product.name | limitTo : 30}}  </h5>
+                    <div *ngIf="product.productDiscounts.offerDiscount == null">
+                      <h5 class="card-title">{{product.productPrice}} zł</h5>
+                    </div>
+                    <div *ngIf="product.productDiscounts.offerDiscount != null">
+                      <h6 class="card-title" style="color: red"> {{product.productDiscounts.offerDiscount.price}} zł <span class="badge badge-danger">Promocja!</span></h6>
+
+                    </div>
+
+                  </div>
+                  <div class="element-btn ">
+                    <button class="btn btn-primary cursor-pointer" style="width:100%; height: 50px;" (click)="onChange(product)"><img src="../../../assets/add_shopping_cart_white_36x36.png"></button>
+                  </div>
+                </div>
+                <div *ngIf="product.isFavourite != null">
+                  <button *ngIf="product.isFavourite == false" (click)="addLike(product)" class="btn btn-secondary cursor-pointer" style="position: absolute;
+                            top: 0; right: 0;">
+                    <img src="../../../assets/like-24.png" alt="">
+                  </button>
+                  <button *ngIf="product.isFavourite == true" (click)="removeLike(product)" class="btn btn-primary cursor-pointer" style="position: absolute;
+                            top: 0; right: 0;">
+                    <img src="../../../assets/like-24.png" alt="">
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </ng-container>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="card-footer text-muted card-parts">
+      <nav *ngIf="isPaginationVisible()" aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item ">
+            <a class="page-link" (click)="prevPage()">Poprzednia</a>
+          </li>
+          <li *ngFor="let page of pageList" class="page-item"><a class="page-link" (click)="setPage(page)">{{page}}</a></li>
+          <li class="page-item">
+            <a class="page-link" (click)="nextPage()">Następna</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

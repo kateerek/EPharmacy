@@ -1,0 +1,19 @@
+<div class=" border center" style=" margin-left: auto; margin-right: auto;">
+  <h5>{{text}}</h5>
+  <div class="row" style=" margin-left: auto; margin-right: auto;">
+      <div *ngFor = "let product of productsOffer" class="card col-3 col-md-6" style="min-width: 10rem; max-width: 15rem;" routerLink = "/product-info/{{product.id}}">
+          <img src={{product.imageUrl}} class="card-img-top cursor-pointer" alt="...">
+          <div class="card-body">
+            <p class="card-text">{{product.name}}</p>
+            <div *ngIf = "product.productDiscounts.offerDiscount == null">
+                <p class="card-title">{{product.productPrice}} zł</p>
+            </div>
+            <div  *ngIf = "product.productDiscounts.offerDiscount != null">
+                <h6 class="card-title" style="color: red"> {{product.productDiscounts.offerDiscount.price}} zł <span class="badge badge-danger">Promocja!</span></h6>
+                
+            </div>
+          </div>
+        </div>
+  </div>    
+</div>
+

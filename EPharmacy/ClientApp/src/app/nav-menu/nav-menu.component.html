@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+  <a class="navbar-brand" routerLink="/"><img src="../../assets/epharmacy_logo.png" style="height: 1.5em;
+    width: auto;" >epharmacy.pl</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+    <ul class="navbar-nav mr-auto">
+      <li *ngIf="isCustomer()" class="nav-item active"><a routerLink="/" role="button" class="nav-link">Produkty</a></li>
+      <li *ngIf="isCustomer()" class="nav-item active"><a routerLink="/places" role="button" class="nav-link"> Lokalizacje</a></li>
+      <li *ngIf="isCustomer()" class="nav-item active"><a routerLink="/refundation-info" role="button" class="nav-link"> Refundacje</a></li>
+      <li *ngIf="isEmployee()" style="margin-top:8px;" class="dropdown show ">
+        <span class="px-2 text-white dropdown-toggle " id="dropdownmenu_edit" data-toggle="dropdown">
+          <a href="#" role="button" class="text-white nav-item active">Edycja danych</a>
+        </span>
+        <div class="dropdown-menu dropdown-menu-right border-1" aria-labelledby="dropdownmenu_edit">
+          <a class="dropdown-item" routerLink="/prod">Produkty</a>
+          <a class="dropdown-item" routerLink="/attributes">Atrybuty</a>
+          <a class="dropdown-item" routerLink="/producer-list">Producenci</a>
+          <a class="dropdown-item" routerLink="/product-types">Kategorie</a>
+          <a class="dropdown-item" routerLink="/location-list">Lokalizacje</a>
+          <a class="dropdown-item" routerLink="/discounts">Zniżki</a>
+        </div>
+      </li>
+      <li *ngIf="isEmployee()" class="nav-item active"><a routerLink="/sales-orders-list" role="button" class="nav-link">Zamówienia</a></li>
+      <li *ngIf="isAdmin()" style="margin-top:8px;" class="dropdown show ">
+         <span class="px-2 text-white dropdown-toggle " id="dropdownmenu_manage" data-toggle="dropdown">
+          <a href="#" role="button" class="text-white nav-item active">Zarządzanie</a>
+        </span>
+        <div class="dropdown-menu dropdown-menu-right border-1" aria-labelledby="dropdownmenu_manage">
+          <a class="dropdown-item" routerLink="/register-worker">Stwórz konto pracownicze</a>
+          <a class="dropdown-item" routerLink="/BI">BI</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline">
+      <div *ngIf="isUser()"  class="dropdown show">
+        <span class="px-2 text-white dropdown-toggle" id="dropdownmenu" data-toggle="dropdown">Jesteś zalogowany jako
+          <a href="#" role="button" class="text-white">{{ email }}</a></span>
+        <div class="dropdown-menu dropdown-menu-right border-1" aria-labelledby="dropdownmenu">
+          <a class="dropdown-item" routerLink="/user">Dane</a>
+          <a class="dropdown-item" routerLink="/password">Zmień hasło</a>
+          <a class="dropdown-item" routerLink="/order-list">Historia zamówień</a>
+        </div>
+      </div>
+      <div *ngIf = "isCustomer()">
+        <a  class='cursor-pointer' (click)= "goToCart()" ><img src="../../assets//cart-21-32.png"></a>
+        <span   class='badge badge-warning' id='lblCartCount'>{{shoppingList}} </span>
+      </div>
+      <button *ngIf="!isLoggedIn()" class="btn btn-outline-light my-2 my-sm-0 login-btn cursor-pointer" routerLink="/login">Zaloguj</button>
+      <button *ngIf="isLoggedIn()"  class="btn btn-outline-light my-2 my-sm-0 login-btn cursor-pointer" (click)="logout()">Wyloguj</button>
+    </form>
+  </div>
+</nav>

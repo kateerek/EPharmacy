@@ -1,0 +1,60 @@
+<div class="card ">
+  <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6"  *ngIf = "product as prod">
+                <img class="card-img-top" style="width:250px; height:250px;"   src={{prod.imageUrl}} alt="Card image cap"> 
+                <div *ngIf = "prod.isFavourite !== null">
+                    <button *ngIf = " isFavourite(prod)" (click) = "removeLike()" class="btn btn-primary" style="position: absolute;
+                    top: 0; left: 0;"> <img src="../../../assets/like-24.png" alt=""></button>
+                    <button *ngIf = " !isFavourite(prod)" (click) = "addLike()" class="btn btn-secondary" style="position: absolute;
+                    top: 0; left: 0;"> <img src="../../../assets/like-24.png" alt=""></button>
+                </div>   
+            </div>
+            <div class="col-sm-6 text-center" *ngIf="product  as prod" style="margin-top:75px;">
+              <h5 class="card-title">{{prod.name}} </h5>
+              <div *ngIf="prod.productDiscounts.offerDiscount == null">
+                <p class="card-title">{{prod.productPrice}} zł</p>
+              </div>
+              <div *ngIf="prod.productDiscounts.offerDiscount != null">
+                <h6 class="card-title" style="text-decoration: line-through"> {{prod.productPrice}} zł</h6>
+                <h6 class="card-title" style="color: red"> {{prod.productDiscounts.offerDiscount.name}} </h6>
+                <h6 class="card-title" style="color: red"> {{prod.productDiscounts.offerDiscount.price}} zł <span class="badge badge-danger">Promocja!</span></h6>
+
+              </div>
+              <p class="card-title">producent: {{prod.producer.name}}</p>
+              <button class="btn btn-primary cursor-pointer" style="width:50%;  padding-bottom: 10px;" (click)="addToCart(prod)"><img src="../../../assets/add_shopping_cart_white_36x36.png"></button>
+            </div>
+            <div class="col-12" *ngIf = "product as prod" style="margin-top: 20px;">
+                <div style=" margin-top: 10px;">
+                    <h6 *ngIf = "prod.prescriptionInformation == null">produkt bez recepty</h6>
+                    <h6 *ngIf = "prod.prescriptionInformation != null">produkt na recepte</h6>
+                </div>
+                <div style=" margin-top: 10px;">
+                    <h6>użycie/dawkowanie:</h6>
+                    <p class="card-title">{{prod.productInformation.recommendedIntake}}</p>
+                </div>
+                <div *ngIf = "prod.productInformation.importantTips != null" style=" margin-top: 10px;">
+                    <h6>ważne wskazówki:</h6>
+                    <p class="card-title">{{prod.productInformation.importantTips}}</p>
+                </div>
+                <div *ngIf = "prod.productInformation.instructionForUse != null" style=" margin-top: 10px;">
+                    <h6>instrukcja użycia:</h6>
+                    <p class="card-title">{{prod.productInformation.instructionForUse}}</p>
+                </div>
+                <div style=" margin-top: 10px;">
+                    <h6>wskazanie do użycia:</h6>
+                    <p class="card-title">{{prod.productInformation.indicationForUse}}</p>
+                </div>
+                <div *ngIf = "product.productDiscounts.prescriptionDiscounts.length != 0" style=" margin-top: 10px;">
+                    <h6>dostępne refundacje:</h6>
+                    <p *ngFor = "let obj of  prescriptionDiscounts" class="card-title">{{obj.name}}: {{obj.price}}zł</p>
+                </div>
+                
+            
+              
+            </div>
+            <app-products-offer  [text] = "text" [productsOffer] = "productsOffer" style="width:100%"></app-products-offer>
+
+           
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="col-12 " style="padding-top:10px;">
+
+  <div class="col-12 col-sm-1" style="margin-top: 35px; margin-bottom: 35px;">
+    <button class="btn btn-primary" routerLink="/add-discount"><img src="../../../../assets/plus-5-32.png"></button>
+  </div>
+
+  <ng-container *ngFor="let discount of valuesOnPage">
+    <div class="card mb-3" style="min-height: 200px;">
+      <div class="row no-gutters">
+        <div class=" col-12">
+          <div class="col-12 row">
+            <div class="card-body col-12 col-sm-8">
+              <h5 class="card-title">{{discount.name}}</h5>
+              <p *ngIf="discount.description" class="card-text"><b>Opis:</b> {{discount.description}}</p>
+              <p *ngIf="!discount.description">Brak opisu dla zniżki</p>
+            </div>
+            <div class="btn-group col-1" style="margin-top: 35px; height: 50px" role="group">
+              <button type="button" class="btn btn-primary" routerLink="/edit-discount/{{discount.id}}"><img src="../../../../assets/edit-7-32.png"></button>
+              <button type="button" class="btn btn-primary" (click)="deleteDiscount(discount.id)"><img src="../../../../assets/delete-32.png"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</div>

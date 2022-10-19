@@ -1,0 +1,9 @@
+D:\materialy_edukacyjne_i_dokumenty\Studia\Inf\I_semester\ziwg\source\EPharmacy\EPharmacy.Data\bin\Debug\netcoreapp2.1\EPharmacy.Data.deps.json
+D:\materialy_edukacyjne_i_dokumenty\Studia\Inf\I_semester\ziwg\source\EPharmacy\EPharmacy.Data\bin\Debug\netcoreapp2.1\EPharmacy.Data.dll
+D:\materialy_edukacyjne_i_dokumenty\Studia\Inf\I_semester\ziwg\source\EPharmacy\EPharmacy.Data\bin\Debug\netcoreapp2.1\EPharmacy.Data.pdb
+D:\materialy_edukacyjne_i_dokumenty\Studia\Inf\I_semester\ziwg\source\EPharmacy\EPharmacy.Data\obj\Debug\netcoreapp2.1\EPharmacy.Data.csproj.CoreCompileInputs.cache
+D:\materialy_edukacyjne_i_dokumenty\Studia\Inf\I_semester\ziwg\source\EPharmacy\EPharmacy.Data\obj\Debug\netcoreapp2.1\EPharmacy.Data.AssemblyInfoInputs.cache
+D:\materialy_edukacyjne_i_dokumenty\Studia\Inf\I_semester\ziwg\source\EPharmacy\EPharmacy.Data\obj\Debug\netcoreapp2.1\EPharmacy.Data.AssemblyInfo.cs
+D:\materialy_edukacyjne_i_dokumenty\Studia\Inf\I_semester\ziwg\source\EPharmacy\EPharmacy.Data\obj\Debug\netcoreapp2.1\EPharmacy.Data.dll
+D:\materialy_edukacyjne_i_dokumenty\Studia\Inf\I_semester\ziwg\source\EPharmacy\EPharmacy.Data\obj\Debug\netcoreapp2.1\EPharmacy.Data.pdb
+D:\materialy_edukacyjne_i_dokumenty\Studia\Inf\I_semester\ziwg\source\EPharmacy\EPharmacy.Data\obj\Debug\netcoreapp2.1\EPharmacy.Data.csprojAssemblyReference.cache

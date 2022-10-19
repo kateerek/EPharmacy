@@ -1,0 +1,32 @@
+<div class="col-12 " style="padding-top:10px;">
+
+  <div class="col-12 col-sm-1" style="margin-top: 35px; margin-bottom: 35px;">
+    <button class="btn btn-primary" routerLink="/add-attribute"><img src="../../../../assets/plus-5-32.png"></button>
+  </div>
+
+  <ng-container *ngFor="let attribute of valuesOnPage">
+    <div class="card mb-3" style="min-height: 200px;">
+      <div class="row no-gutters">
+        <div class=" col-12">
+          <div class="col-12 row">
+            <div class="card-body col-12 col-sm-8">
+              <h5 class="card-title">{{attribute.name}}</h5>
+              <p class="card-text">{{attribute.description}}</p>
+            </div>
+            <div class="btn-group col-1" style="margin-top: 35px; height: 50px" role="group">
+              <button type="button" class="btn btn-primary" (click)="selectedAttribute=attribute"><img src="../../../../assets/edit-7-32.png"></button>
+              <button type="button" class="btn btn-primary"><img src="../../../../assets/delete-32.png"></button>
+            </div>
+            <div class="w-100"></div>
+            <div *ngIf="attribute === selectedAttribute" class="col-12 row justify-content-center my-2">
+              <div class="col-sm-8 col-md-6">
+                <app-edit-attribute [attribute]="selectedAttribute" (attributeChange)="updateSelectedAttr($event)"></app-edit-attribute>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+</div>

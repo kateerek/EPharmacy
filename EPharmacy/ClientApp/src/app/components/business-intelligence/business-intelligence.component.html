@@ -1,0 +1,29 @@
+<form #f="ngForm" (ngSubmit)="onClick(f.value)">
+  <div class="row">
+    <div class=" col-12 col-sm-5 form-group">
+      <label >Od:</label>
+      <input ngModel name ="datepickerFrom" id ="datepickerFrom" type="date"  [max]="getDay()"
+        min="2018-01-01" class="form-control" >
+    </div>
+    
+    <div  class=" col-12 col-sm-5 form-group">
+      <label >Do:</label>
+      <input ngModel name ="datepickerTo" id ="datepickerTo" type="date"  [max]="getDay()"
+        min="2018-01-01" class="form-control" >
+    </div>
+    <div  class=" col-12 col-sm-2 form-group">
+      <button class="btn btn-primary" style="margin-top: 20px;"  type="submit">Generuj</button>
+    </div>
+  </div>
+
+
+</form>
+<select class="form-control" [(ngModel)]="selectedValue">
+    <option *ngFor="let t of types" [ngValue]="t">{{t}}</option>
+  </select>
+  <div >
+    <canvas id="barChart"></canvas>
+  </div>
+  
+
+

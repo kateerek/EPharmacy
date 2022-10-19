@@ -1,0 +1,39 @@
+<div class="row pb-3">
+  <div class="col-md-12">
+    <div class="card border-0">
+
+      <div *ngIf="errors" class="alert alert-danger" role="alert">
+        <strong>Błąd po stronie serwera: </strong> {{errors}}
+      </div>
+
+      <div *ngIf="wasDataChangeSuccessful" class="alert alert-success" role="alert">
+        Twoje dane zostały pomyślnie zaktualizowane!
+      </div>
+
+      <div class="card-header bg-white border-0">
+        <h2>Twoje dane:</h2>
+      </div>
+
+      <form #f="ngForm" novalidate>
+        <div class="form-group">
+          <app-form-input-element name="firstName" label="Imię" [(ngModel)]="userData.firstName" required #firstName="ngModel"></app-form-input-element>
+          <app-validation-errors-display [model]="firstName" message="Pole 'Imię' jest wymagane"></app-validation-errors-display>
+        </div>
+
+        <div class="form-group">
+          <app-form-input-element name="lastName" label="Nazwisko" [(ngModel)]="userData.lastName" required #lastName="ngModel"></app-form-input-element>
+          <app-validation-errors-display [model]="lastName" message="Pole 'Nazwisko' jest wymagane"></app-validation-errors-display>
+        </div>
+
+        <div class="form-group">
+          <app-form-input-element name="email" label="Email" type="email" [(ngModel)]="userData.email" email #email="ngModel"></app-form-input-element>
+          <app-validation-errors-display [model]="email" message="Wprowadź poprawny adres email"></app-validation-errors-display>
+        </div>
+
+        <button class="btn btn-primary" [disabled]="f.invalid || f.pristine" (click)="updateUserData(f)">Zastosuj zmiany</button>
+        <button class="btn btn-secondary" (click)="goBack()">Wróć</button>
+      </form>
+    </div>
+  </div>
+</div>
+

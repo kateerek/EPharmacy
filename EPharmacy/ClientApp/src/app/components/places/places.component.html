@@ -1,0 +1,30 @@
+<div class="col-12 " style="padding-top:10px;">
+<h1>Lokalizacje aptek</h1>
+
+<div class="col-12 row">
+  <div class="col-12 col-sm-5">
+    <ng-container  *ngFor = "let place of valuesOnPage">
+      <div class="list-group default-list-item" style="margin:10px"  (click)="setCurrentFocused(place.id, place.latitude, place.longitude)">
+        <span class="list-group-item cursor-pointer">
+          {{place.name}} <br>
+          {{place.address}}
+        </span>
+      </div>
+    </ng-container>
+  </div>
+  <div class="col-12 col-sm-7">
+    <agm-map [zoom]="14" [latitude]="lat" [longitude]="lng">
+      <ng-container  *ngFor = "let place of valuesOnPage">
+        <agm-marker [latitude]="place.latitude" [longitude]="place.longitude">
+          <agm-info-window [disableAutoPan]="true" [isOpen]="isMarkerOpen(place.id)">
+            <p>{{place.name}}</p>
+            <p>{{place.address}}</p>
+          </agm-info-window>
+        </agm-marker>
+      </ng-container>
+    </agm-map>
+  </div>
+</div>
+
+</div>
+

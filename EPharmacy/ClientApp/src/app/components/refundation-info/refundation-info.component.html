@@ -1,0 +1,34 @@
+<div class="col-12 " style="padding-top:10px;">
+  <h3>Informacje o uprawnieniach do refundacji </h3>
+  <span>
+    Jeżeli posiadasz dodatkowe uprawnienia do zaopatrzenia w leki jesteś zobowiązany do przedstawienia lekarzowi wypisującemu receptę dokumentu potwierdzającego Twoje uprawnienia. Jeżeli lekarz nie odnotował uprawnień na recepcie, a masz dokument je potwierdzający, odpowiednią adnotację może uczynić na niej aptekarz. W takim przypadku powinieneś otrzymać leki za odpłatnością zgodną z  refundacją dla osób uprawnionych.
+    <br />
+    <br />
+    Nasza apteka akceptuje nastepujące uprawnienia dodatkowe:
+  </span>
+  <br />
+  <br />
+  <div class="row">
+    <div class="col-4">
+      <div class="list-group" id="list-tab" role="tablist">
+        <a *ngFor="let refundation of refundations"
+           class="list-group-item list-group-item-action"
+           data-toggle="list"
+           href="#{{refundation.id}}"
+           role="tab">
+          <h5>{{refundation.name}}</h5>
+        </a>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="tab-content" id="nav-tabContent">
+        <div *ngFor="let refundation of refundations"
+             class="tab-pane fade"
+             id="{{refundation.id}}"
+             role="tabpanel">
+          {{refundation.description}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,108 @@
+<ng-container>
+  <div class="card mb-3" *ngFor="let element of shoppingList">
+    <div class="no-gutters row">
+      <div class="col-12 col-md-2">
+        <img style="height: 80px; width: 80px; display: block;" src={{element.product.imageUrl}} class="center card-img ">
+      </div>
+      <div class=" col-12 col-md-10 card-body row ">
+        <div class="col-12 col-lg-8 center text-center">
+          <h5 class="card-title">{{element.product.name}}</h5>
+        </div>
+        <div class="col-12 col-lg-4 row center" style=" float:right;">
+          <div class="row">
+            <div id="priceOfProduct{{element.product.id}}" class="text-center" style="margin: auto;  width: 100px;">
+              <div *ngIf="element.selectedDiscount == null  && element.product.productDiscounts.offerDiscount == null">
+                <p class="card-title">{{element.product.productPrice}} zł</p>
+              </div>
+              <div *ngIf="element.selectedDiscount == null  && element.product.productDiscounts.offerDiscount != null">
+                <h6 class="card-title" style="color: red">
+                  {{element.product.productDiscounts.offerDiscount.price}} zł
+                  <span class="badge badge-danger">Promocja!</span>
+                </h6>
+              </div>
+              <div *ngIf="element.selectedDiscount != null">
+                <p class="card-title">
+                  {{currentPrice(element.product, element.selectedDiscount)}} zł
+                </p>
+              </div>
+            </div>
+              <div class=" btn-group mr-2" role="group" aria-label="Second group">
+                <button type="button" class="btn btn-primary" style="height:40px; width: 40px;" (click)="onChange(element.product, -1)"><img src="../../../assets/minus-16.ico"></button>
+                <a style=" min-width: 40px; height: 40px; margin: auto; margin-top: 7px  " class="text-center">{{element.counter
+                  }}</a>
+                  <button type="button" class="btn btn-primary" style="height:40px; width: 40px;" (click)="onChange(element.product, 1)"><img src="../../../assets/plus-16.ico"></button>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-8 center text-center">
+      </div>
+      <div class="col-4 offset-12 center text-center">
+        <div class="form-group container" *ngIf="element.product.productDiscounts.prescriptionDiscounts != null && element.product.productDiscounts.prescriptionDiscounts.length > 0">
+          <div class="row">
+            <div class="col-4">
+              <p>Refundacja: </p>
+            </div>
+            <div class="col-8">
+              <select class="form-control" id="prescriptionSelect{{element.product.id}}" [ngModel]="element.selectedDiscount" (ngModelChange)="setSelectedDiscount(element.product.id, $event)">
+                <option [ngValue]="null" selected>Brak</option>
+                <option *ngFor="let obj of element.product.productDiscounts.prescriptionDiscounts"
+                        [ngValue]="obj.id">
+                  {{obj.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<div class="card mb-3">
+  <div class="no-gutters row" style="margin-top: 20px; margin-bottom: 20px; margin-left: 20px;">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>Cena koszyka:</h5>
+        </div>
+        <div class="col-md-3 text-left">
+          <h5>{{price() | number : '1.2'}} zł</h5>
+        </div>
+      </div>
+      </div>
+    <div class="col-md-6">
+      <button *ngIf="isVisible()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin:auto; float: right; margin-right: 20px;"> Dokonaj zakupu</button>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Szczegóły zamówienia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group">
+          <li *ngFor="let element of shoppingList" class="list-group-item">{{element.product.name}}: {{element.counter}} sztuk </li>
+          <li class="list-group-item">Cena koszyka: {{price() | number : '1.2'}}zł </li>
+        </ul>
+        <div class="form-group" style="padding-top: 10px;">
+          <label for="exampleFormControlSelect1">Wybierz placówkę w której odbierzesz medykamenty:</label>
+          <select class="form-control" id="exampleFormControlSelect1" ngModel (ngModelChange)="setLocation($event)">
+            <option *ngFor="let location of pharmacyLocations | async" [ngValue]="location.id">{{location.address}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Wyjdź</button>
+        <button type="button" class="btn btn-primary" (click)="sendOrder()" data-dismiss="modal">Dokonaj zakupu</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+
+<div class="row ">
+  <div class="col-12 row">
+    <div class="col-12 col-sm-6">
+      <select class="browser-default custom-select" ngModel (ngModelChange)="filter($event)" style="max-width:300px; margin:auto; margin-bottom: 10px; margin-top: 40px; ">
+        <option *ngFor="let type of types | async; let i = index" [ngValue]="i">{{type.name}}</option>
+      </select>
+    </div>
+    <div class="col-12 col-sm-6" style="margin-top: 35px;">
+      <button class="btn btn-primary" routerLink= "/add-product"><img src="../../../../assets/plus-5-32.png"></button>
+    </div>
+
+  </div>
+
+
+
+  <div class="col-12 " style="padding-top:10px;">
+
+
+
+    <ng-container *ngFor="let product of valuesOnPage">
+      <div class="card mb-3" style="min-height: 200px;">
+        <div class="row no-gutters">
+          <div class=" col-12 col-md-4">
+            <img src={{product.imageUrl}} style="height:198px; width: 198px;" class="card-img" alt="...">
+          </div>
+          <div class=" col-12 col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{product.name}}</h5>
+              <p class="card-text">{{product.productPrice}} zł</p>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary"><img src="../../../../assets/edit-7-32.png"></button>
+                <button type="button" class="btn btn-primary" (click) = delete(product.id)><img src="../../../../assets/delete-32.png"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+
+</div>
